@@ -1,12 +1,18 @@
 package java8features.stream;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class StreamOperations {
     public static void main(String[] args) {
         List<String> names = List.of("jack", "tom", "sam", "tom");
+        List<Integer> numbers = List.of(5, 2, 3, 4);
+        int[] arrayNumbers = new int[]{2,3,6,3};
         List<List<String>> nestedList = List.of(List.of("first", "second"), List.of("third", "fourth"));
 
         /* Intermediate Operations */
@@ -47,7 +53,7 @@ public class StreamOperations {
         System.out.println(names.stream().reduce((a, b) -> a+b).get());
 
         //4.count:
-        System.out.println(names.stream().count());
+        System.out.println((long) names.stream().count());
 
         //5.anyMatch:(short-circuit)
         System.out.println(names.stream().anyMatch(x->x.equals("sam")));
@@ -56,7 +62,7 @@ public class StreamOperations {
         System.out.println(names.stream().allMatch(x->x.equals("sam")));
 
         //7.noneMatch: opposite of anyMatch(short-circuit)
-        System.out.println(names.stream().allMatch(x->x.equals("sam")));
+        System.out.println(names.stream().noneMatch(x->x.equals("sam")));
 
         //8.findFirst:(short-circuit)
         System.out.println(names.stream().findFirst().get());
@@ -64,5 +70,22 @@ public class StreamOperations {
         //9.findAny:(short-circuit)
         System.out.println(names.stream().findAny().get());
 
+        //10.min
+        System.out.println(numbers.stream().max(Integer::compare).get());
+
+        //11.max
+        System.out.println(numbers.stream().min(Integer::compare).get());
+
+        //11.sum: IntStream
+        System.out.println(Arrays.stream(arrayNumbers).sum());
+
+        int[] a = { 10 , 20 , 30 , 40 };
+        int[] b = { 5 , 60 , 7 , 20 };
+
+        System.out.println(Arrays.toString(IntStream.concat(IntStream.of(a), IntStream.of(b)).sorted().distinct().toArray()));
+
+        String testing = "hello";
+        char chtesting = testing.chars().mapToObj(ch-> (char)ch).collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
+        System.out.println(chtesting);
     }
 }

@@ -15,6 +15,7 @@ public class Main {
         List<Student> students = Arrays.asList(student1, student2, student3, student4, student5);
 
         Collections.sort(students, new StudentIdComparator());
+//        students.sort(new StudentIdComparator());
         System.out.println("Sorted Ids : "+students);
 
         Collections.sort(students, new StudentNameComparator());

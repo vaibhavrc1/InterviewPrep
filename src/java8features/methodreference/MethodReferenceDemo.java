@@ -9,6 +9,7 @@ public class MethodReferenceDemo {
         List<String> names = List.of("Sam", "Tom", "jack");
         List<String> names2 = names.stream().map(mrd::uppercase).collect(Collectors.toList());
         System.out.println(names2);
+        String s = "Hello";
     }
 
     public String uppercase(String str){
