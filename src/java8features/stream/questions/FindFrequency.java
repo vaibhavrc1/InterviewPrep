@@ -10,7 +10,7 @@ public class FindFrequency {
     public static void main(String[] args) {
         List<String> words = Arrays.asList("apple", "banana", "apple", "cherry", "banana", "apple");
 
-        Map<String, Integer> map = words.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
+        Map<String, Long> map = words.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         System.out.println(map);
     }
 }
